@@ -43,5 +43,21 @@ services:
     depends_on:
       - db
 
+  event_agent:
+    build:
+      context: ./app_service
+      dockerfile: agents/event_processing_agent/Dockerfile
+    container_name: deal_event_agent
+    volumes:
+      - ./app_service/logs:/app/logs # Mount logs directory for persistence
+    environment:
+      - DATABASE_NAME=deals_db
+      - DATABASE_USER=deals_user
+      - DATABASE_PASSWORD=deals_password
+      - DATABASE_HOST=db
+      - DATABASE_PORT=5432
+    depends_on:
+      - db
+
 volumes:
   postgres_data:

@@ -26,8 +26,7 @@ CREATE TABLE IF NOT EXISTS inventory (
     quantity_on_hand INTEGER NOT NULL CHECK (quantity_on_hand >= 0),
     category VARCHAR(100) NOT NULL,
     supplier VARCHAR(255),
-    created_at TIMESTAMP WITH TIME ZONE DEFAULT CURRENT_TIMESTAMP,
-    updated_at TIMESTAMP WITH TIME ZONE DEFAULT CURRENT_TIMESTAMP
+    created_at TIMESTAMP WITH TIME ZONE DEFAULT CURRENT_TIMESTAMP
 );
 
 -- Table: deal_suggestions (Stores AI-generated deal suggestions and vendor feedback)
@@ -50,8 +49,7 @@ CREATE TABLE IF NOT EXISTS deal_suggestions (
     status VARCHAR(32) NOT NULL DEFAULT 'generated' CHECK (status IN ('generated', 'notified_vendor', 'feedback_received', 'deal_posted', 'deal_post_failed', 'expired')),
     deals_api_request_payload JSON,
     deals_api_response_payload JSON,
-    created_at TIMESTAMP WITH TIME ZONE DEFAULT CURRENT_TIMESTAMP,
-    updated_at TIMESTAMP WITH TIME ZONE DEFAULT CURRENT_TIMESTAMP
+    created_at TIMESTAMP WITH TIME ZONE DEFAULT CURRENT_TIMESTAMP
     -- Add foreign key constraints if referenced tables exist:
     -- ,FOREIGN KEY (vendor_id) REFERENCES main_vendorkyc(vendor_id)
     -- ,FOREIGN KEY (event_id) REFERENCES events(event_id)
@@ -71,29 +69,4 @@ CREATE INDEX IF NOT EXISTS idx_deal_suggestions_vendor_id ON deal_suggestions(ve
 CREATE INDEX IF NOT EXISTS idx_deal_suggestions_event_id ON deal_suggestions(event_id);
 CREATE INDEX IF NOT EXISTS idx_deal_suggestions_inventory_item_id ON deal_suggestions(inventory_item_id);
 CREATE INDEX IF NOT EXISTS idx_deal_suggestions_status ON deal_suggestions(status);
-CREATE INDEX IF NOT EXISTS idx_deal_suggestions_vendor_feedback ON deal_suggestions(vendor_feedback);
-
--- Create a function to update the updated_at timestamp
-CREATE OR REPLACE FUNCTION update_updated_at_column()
-RETURNS TRIGGER AS $$
-BEGIN
-    NEW.updated_at = CURRENT_TIMESTAMP;
-    RETURN NEW;
-END;
-$$ language 'plpgsql';
-
--- Create triggers to automatically update the updated_at column
-CREATE TRIGGER update_events_updated_at
-    BEFORE UPDATE ON events
-    FOR EACH ROW
-    EXECUTE FUNCTION update_updated_at_column();
-
-CREATE TRIGGER update_inventory_updated_at
-    BEFORE UPDATE ON inventory
-    FOR EACH ROW
-    EXECUTE FUNCTION update_updated_at_column();
-
-CREATE TRIGGER update_deal_suggestions_updated_at
-    BEFORE UPDATE ON deal_suggestions
-    FOR EACH ROW
-    EXECUTE FUNCTION update_updated_at_column(); 
+CREATE INDEX IF NOT EXISTS idx_deal_suggestions_vendor_feedback ON deal_suggestions(vendor_feedback); 
