@@ -1,0 +1,47 @@
+version: '3.8'
+
+services:
+  app:
+    build:
+      context: ./app_service
+    container_name: deal_app_api
+    ports:
+      - "8008:8008" # Host port 8008 mapped to container port 8008
+    volumes:
+      - ./app_service:/app # Mount app code for hot-reloading (dev)
+    environment:
+      - DATABASE_NAME=deals_db
+      - DATABASE_USER=deals_user
+      - DATABASE_PASSWORD=deals_password
+      - DATABASE_HOST=db
+      - DATABASE_PORT=5432
+    depends_on:
+      - db
+
+  db:
+    build:
+      context: ./db_service
+    container_name: deal_app_db
+    ports:
+      - "5432:5432"
+    volumes:
+      - ./pgdata:/var/lib/postgresql/data # Database files visible on host
+      - ./backups:/backups # For storing backups
+    environment:
+      - POSTGRES_DB=deals_db
+      - POSTGRES_USER=deals_user
+      - POSTGRES_PASSWORD=deals_password
+    # Backups: see backup_db.sh script in ./backups
+
+  db_backup:
+    build:
+      context: ./backups
+    container_name: deal_app_db_backup
+    volumes:
+      - ./backups:/backups
+      - /var/run/docker.sock:/var/run/docker.sock
+    depends_on:
+      - db
+
+volumes:
+  postgres_data:

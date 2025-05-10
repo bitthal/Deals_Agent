@@ -1,0 +1,24 @@
+# FastAPI and Uvicorn
+fastapi
+uvicorn[standard] # Using [standard] includes gunicorn and other useful extras
+
+# Database Connector for PostgreSQL
+asyncpg
+
+# For loading .env files
+python-dotenv
+
+# Twilio (if still needed for other parts of your project, otherwise remove)
+twilio
+
+# Flask (if still needed for other parts of your project, otherwise remove)
+flask
+
+# For form data, often used with FastAPI file uploads
+python-multipart
+
+google-generativeai
+
+
+boto3
+google-cloud-aiplatform

@@ -1,0 +1,17 @@
+# Log files
+app_service/logs/
+*.log
+
+# Python cache
+app_service/__pycache__/
+__pycache__/
+*.pyc
+
+# Environment variables
+app_service/.env
+.env
+
+# IDE and OS specific files
+.vscode/
+.idea/
+*.DS_Store

@@ -1,0 +1,223 @@
+{
+  "events": [
+    {
+      "vendor_id": 1,
+      "location_uuid": "11111111-1111-1111-1111-111111111111",
+      "event_trigger_point": "weather",
+      "event_details_text": {"description": "Heavy rain expected"},
+      "event_location_latitude": 28.6139,
+      "event_location_longitude": 77.2090,
+      "event_timestamp": "2024-06-01T09:00:00Z"
+    },
+    {
+      "vendor_id": 2,
+      "location_uuid": "22222222-2222-2222-2222-222222222222",
+      "event_trigger_point": "product_expiry",
+      "event_details_text": {"product": "Energy Gel", "expiry": "2024-06-10"},
+      "event_location_latitude": 19.0760,
+      "event_location_longitude": 72.8777,
+      "event_timestamp": "2024-06-02T10:00:00Z"
+    },
+    {
+      "vendor_id": 3,
+      "location_uuid": "33333333-3333-3333-3333-333333333333",
+      "event_trigger_point": "holiday_special",
+      "event_details_text": {"holiday": "Independence Day"},
+      "event_location_latitude": 12.9716,
+      "event_location_longitude": 77.5946,
+      "event_timestamp": "2024-08-15T08:00:00Z"
+    },
+    {
+      "vendor_id": 4,
+      "location_uuid": "44444444-4444-4444-4444-444444444444",
+      "event_trigger_point": "local_event",
+      "event_details_text": {"event": "Marathon"},
+      "event_location_latitude": 13.0827,
+      "event_location_longitude": 80.2707,
+      "event_timestamp": "2024-07-20T06:00:00Z"
+    },
+    {
+      "vendor_id": 5,
+      "location_uuid": "55555555-5555-5555-5555-555555555555",
+      "event_trigger_point": "stock_level",
+      "event_details_text": {"sku": "UMB-LG-BLK-001", "stock": 10},
+      "event_location_latitude": 22.5726,
+      "event_location_longitude": 88.3639,
+      "event_timestamp": "2024-06-15T12:00:00Z"
+    }
+  ],
+  "inventory": [
+    {
+      "sku": "UMB-LG-BLK-001",
+      "product_name": "Large Black Umbrella",
+      "description": "A sturdy black umbrella, windproof.",
+      "price": 400,
+      "quantity_on_hand": 150,
+      "category": "Accessories",
+      "supplier": "Reliable Umbrellas Inc."
+    },
+    {
+      "sku": "WB-BRD-STL-002",
+      "product_name": "Water Bottle - Branded",
+      "description": "Stainless steel, 750ml, event branded.",
+      "price": 250,
+      "quantity_on_hand": 2000,
+      "category": "Merchandise",
+      "supplier": "PromoGoods Ltd."
+    },
+    {
+      "sku": "EG-STR-PK-003",
+      "product_name": "Energy Gel - Strawberry",
+      "description": "Quick energy boost, strawberry flavor, pack of 3.",
+      "price": 150,
+      "quantity_on_hand": 500,
+      "category": "Consumables",
+      "supplier": "Sports Nutrition Co."
+    },
+    {
+      "sku": "CAP-RUN-BLU-004",
+      "product_name": "Running Cap - Blue",
+      "description": "Lightweight, breathable, adjustable blue cap.",
+      "price": 180,
+      "quantity_on_hand": 300,
+      "category": "Apparel",
+      "supplier": "ActiveWear Supplies"
+    },
+    {
+      "sku": "TSH-EVT-M-005",
+      "product_name": "T-Shirt - Event Branded - M",
+      "description": "Cotton event t-shirt, medium size.",
+      "price": 350,
+      "quantity_on_hand": 1500,
+      "category": "Merchandise",
+      "supplier": "PromoGoods Ltd."
+    },
+    {
+      "sku": "TSH-EVT-L-006",
+      "product_name": "T-Shirt - Event Branded - L",
+      "description": "Cotton event t-shirt, large size.",
+      "price": 350,
+      "quantity_on_hand": 1500,
+      "category": "Merchandise",
+      "supplier": "PromoGoods Ltd."
+    },
+    {
+      "sku": "FAK-SML-RD-007",
+      "product_name": "First Aid Kit - Small",
+      "description": "Compact first aid kit for minor injuries.",
+      "price": 220,
+      "quantity_on_hand": 100,
+      "category": "Safety",
+      "supplier": "HealthFirst Products"
+    },
+    {
+      "sku": "SUN-SPF50-100ML-008",
+      "product_name": "Sunscreen SPF 50",
+      "description": "100ml tube, SPF 50, water-resistant.",
+      "price": 120,
+      "quantity_on_hand": 400,
+      "category": "Consumables",
+      "supplier": "SafeSkin Solutions"
+    },
+    {
+      "sku": "TWL-COOL-GRN-009",
+      "product_name": "Cooling Towel",
+      "description": "Instant cooling relief towel, green.",
+      "price": 90,
+      "quantity_on_hand": 600,
+      "category": "Accessories",
+      "supplier": "ActiveWear Supplies"
+    },
+    {
+      "sku": "BAG-DRAW-RD-010",
+      "product_name": "Drawstring Bag - Red",
+      "description": "Nylon drawstring bag, red color, event logo option.",
+      "price": 75,
+      "quantity_on_hand": 1000,
+      "category": "Merchandise",
+      "supplier": "PromoGoods Ltd."
+    }
+  ],
+  "deal_suggestions": [
+    {
+      "vendor_id": 1,
+      "event_id": 1,
+      "inventory_item_id": 1,
+      "suggested_product_sku": "UMB-LG-BLK-001",
+      "deal_details_prompt": "Suggest a rainy day deal.",
+      "deal_details_suggestion_text": "Buy a Large Black Umbrella at 20% off!",
+      "suggested_discount_type": "percentage",
+      "suggested_discount_value": 20,
+      "original_price": 400,
+      "suggested_price": 320,
+      "ai_model_name": "gemini-1.5-flash",
+      "ai_response_payload": {"model": "gemini-1.5-flash", "score": 0.98},
+      "vendor_feedback": "pending",
+      "status": "generated"
+    },
+    {
+      "vendor_id": 2,
+      "event_id": 2,
+      "inventory_item_id": 2,
+      "suggested_product_sku": "WB-BRD-STL-002",
+      "deal_details_prompt": "Suggest a hydration deal.",
+      "deal_details_suggestion_text": "Get a Branded Water Bottle for just ₹200!",
+      "suggested_discount_type": "fixed_amount",
+      "suggested_discount_value": 50,
+      "original_price": 250,
+      "suggested_price": 200,
+      "ai_model_name": "gemini-1.5-flash",
+      "ai_response_payload": {"model": "gemini-1.5-flash", "score": 0.95},
+      "vendor_feedback": "pending",
+      "status": "generated"
+    },
+    {
+      "vendor_id": 3,
+      "event_id": 3,
+      "inventory_item_id": 3,
+      "suggested_product_sku": "EG-STR-PK-003",
+      "deal_details_prompt": "Suggest an energy deal.",
+      "deal_details_suggestion_text": "Energy Gel pack of 3 at 10% off!",
+      "suggested_discount_type": "percentage",
+      "suggested_discount_value": 10,
+      "original_price": 150,
+      "suggested_price": 135,
+      "ai_model_name": "gemini-1.5-flash",
+      "ai_response_payload": {"model": "gemini-1.5-flash", "score": 0.92},
+      "vendor_feedback": "pending",
+      "status": "generated"
+    },
+    {
+      "vendor_id": 4,
+      "event_id": 4,
+      "inventory_item_id": 4,
+      "suggested_product_sku": "CAP-RUN-BLU-004",
+      "deal_details_prompt": "Suggest a sun protection deal.",
+      "deal_details_suggestion_text": "Running Cap - Blue at ₹150 only!",
+      "suggested_discount_type": "fixed_amount",
+      "suggested_discount_value": 30,
+      "original_price": 180,
+      "suggested_price": 150,
+      "ai_model_name": "gemini-1.5-flash",
+      "ai_response_payload": {"model": "gemini-1.5-flash", "score": 0.90},
+      "vendor_feedback": "pending",
+      "status": "generated"
+    },
+    {
+      "vendor_id": 5,
+      "event_id": 5,
+      "inventory_item_id": 5,
+      "suggested_product_sku": "TSH-EVT-M-005",
+      "deal_details_prompt": "Suggest a t-shirt deal.",
+      "deal_details_suggestion_text": "Event Branded T-Shirt (M) at 15% off!",
+      "suggested_discount_type": "percentage",
+      "suggested_discount_value": 15,
+      "original_price": 350,
+      "suggested_price": 297.5,
+      "ai_model_name": "gemini-1.5-flash",
+      "ai_response_payload": {"model": "gemini-1.5-flash", "score": 0.93},
+      "vendor_feedback": "pending",
+      "status": "generated"
+    }
+  ]
+} 
