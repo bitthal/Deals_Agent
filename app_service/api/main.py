@@ -2,6 +2,8 @@ import os
 import asyncio
 import asyncpg
 from fastapi import FastAPI
+from fastapi.middleware.cors import CORSMiddleware
+import uvicorn
 from logger_config import logger
 
 from config.database import DATABASES, are_db_settings_valid
@@ -40,9 +42,18 @@ if not GEMINI_API_KEY:
 
 # --- FASTAPI APP INITIALIZATION ---
 app = FastAPI(
-    title=APP_NAME,
-    description=APP_DESCRIPTION,
-    version=APP_VERSION
+    title="Deals Agent API",
+    description="API for managing deals and suggestions",
+    version="1.0.0"
+)
+
+# Add CORS middleware
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=["*"],
+    allow_credentials=True,
+    allow_methods=["*"],
+    allow_headers=["*"],
 )
 
 # Include routers
@@ -53,7 +64,7 @@ app.include_router(deals.router)
 @app.get("/", summary="Root Path", description="API welcome message and health check.")
 async def read_root():
     logger.info("--- Received GET request to / ---")
-    return {"message": f"Welcome to the {APP_NAME}. Visit /docs for API documentation."}
+    return {"message": "Welcome to Deals Agent API"}
 
 # --- FASTAPI EVENT HANDLERS ---
 @app.on_event("startup")
@@ -94,4 +105,7 @@ async def shutdown_event():
     if db_pool:
         logger.info("Closing database connection pool...")
         await db_pool.close()
-        logger.info("Database connection pool closed.") 
+        logger.info("Database connection pool closed.")
+
+if __name__ == "__main__":
+    uvicorn.run("main:app", host="0.0.0.0", port=8008, reload=True) 

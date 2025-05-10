@@ -1,6 +1,6 @@
 import os
 import logging
-import logging.handlers
+from logging.handlers import RotatingFileHandler
 from datetime import datetime, timedelta
 from pathlib import Path
 import pytz
@@ -37,54 +37,38 @@ def setup_logger() -> logging.Logger:
     
     # Configure root logger
     logger = logging.getLogger("deals_agent")
-    logger.setLevel(logging.DEBUG)
+    logger.setLevel(logging.INFO)
     
     # Remove any existing handlers to avoid duplicates
     logger.handlers.clear()
     
     # Create formatters
-    detailed_formatter = CustomFormatter(
-        '%(asctime)s - %(name)s - %(levelname)s - %(file_info)s - %(message)s'
+    console_formatter = logging.Formatter(
+        '%(asctime)s - %(levelname)s - %(message)s',
+        datefmt='%Y-%m-%d %H:%M:%S'
     )
-    simple_formatter = CustomFormatter(
-        '%(asctime)s - %(levelname)s - %(file_info)s - %(message)s'
+
+    file_formatter = logging.Formatter(
+        '%(asctime)s - %(levelname)s - %(filename)s:%(lineno)d - %(message)s',
+        datefmt='%Y-%m-%d %H:%M:%S'
     )
     
     # Console Handler (INFO level)
     console_handler = logging.StreamHandler()
-    console_handler.setLevel(logging.INFO)
-    console_handler.setFormatter(simple_formatter)
+    console_handler.setFormatter(console_formatter)
     logger.addHandler(console_handler)
     
-    # File Handler (DEBUG level)
-    current_date = datetime.now(IST).strftime('%Y-%m-%d')
-    log_file = LOGS_DIR / f"log_{current_date}.log"
-    
-    file_handler = logging.handlers.TimedRotatingFileHandler(
-        filename=log_file,
-        when='midnight',
-        interval=1,
-        backupCount=MAX_LOG_DAYS,
-        encoding='utf-8',
-        atTime=datetime.strptime('00:00', '%H:%M').time()
+    # File Handler (INFO level)
+    file_handler = RotatingFileHandler(
+        LOGS_DIR / "deals_agent.log",
+        maxBytes=10*1024*1024,  # 10MB
+        backupCount=5
     )
-    file_handler.setLevel(logging.DEBUG)
-    file_handler.setFormatter(detailed_formatter)
+    file_handler.setFormatter(file_formatter)
     logger.addHandler(file_handler)
     
-    # Error File Handler (ERROR level)
-    error_log_file = LOGS_DIR / f"error_{current_date}.log"
-    error_file_handler = logging.handlers.TimedRotatingFileHandler(
-        filename=error_log_file,
-        when='midnight',
-        interval=1,
-        backupCount=MAX_LOG_DAYS,
-        encoding='utf-8',
-        atTime=datetime.strptime('00:00', '%H:%M').time()
-    )
-    error_file_handler.setLevel(logging.ERROR)
-    error_file_handler.setFormatter(detailed_formatter)
-    logger.addHandler(error_file_handler)
+    # Set timezone to IST
+    logging.Formatter.converter = lambda *args: datetime.now(IST).timetuple()
     
     return logger
 
