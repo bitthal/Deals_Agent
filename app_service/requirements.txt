@@ -1,12 +1,12 @@
 # FastAPI and Uvicorn
-fastapi
-uvicorn[standard] # Using [standard] includes gunicorn and other useful extras
+fastapi==0.109.2
+uvicorn==0.27.1
 
 # Database Connector for PostgreSQL
-asyncpg
+asyncpg==0.29.0
 
 # For loading .env files
-python-dotenv
+python-dotenv==1.0.1
 
 # Twilio (if still needed for other parts of your project, otherwise remove)
 twilio
@@ -15,10 +15,14 @@ twilio
 flask
 
 # For form data, often used with FastAPI file uploads
-python-multipart
+python-multipart==0.0.9
 
-google-generativeai
-
+google-generativeai==0.3.2
 
 boto3
 google-cloud-aiplatform
+
+pydantic==2.6.1
+email-validator==2.1.0.post1
+
+pytz==2024.1
