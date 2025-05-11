@@ -16,7 +16,7 @@ services:
       - DATABASE_HOST=172.178.68.8
       - DATABASE_PORT=5432
 
-  event_agent:
+  event_processing_agent:
     build:
       context: .
       dockerfile: agents/event_processing_agent/Dockerfile
@@ -28,4 +28,25 @@ services:
       - DATABASE_USER=deals_user
       - DATABASE_PASSWORD=deals_password
       - DATABASE_HOST=172.178.68.8
-      - DATABASE_PORT=5432 
+      - DATABASE_PORT=5432
+
+  event_sourcing_agent:
+    build:
+      context: .
+      dockerfile: Dockerfile.event_sourcing_agent
+    container_name: deal_event_sourcing_agent
+    volumes:
+      - ./logs:/app/logs:rw # Mount logs directory with read-write permissions
+    environment:
+      - DATABASE_NAME=deals_db
+      - DATABASE_USER=deals_user
+      - DATABASE_PASSWORD=deals_password
+      - DATABASE_HOST=172.178.68.8
+      - DATABASE_PORT=5432
+      - DATABASE_NAME_2=deals_db
+      - DATABASE_USER_2=deals_user
+      - DATABASE_PASSWORD_2=deals_password
+      - DATABASE_HOST_2=172.178.68.8
+      - DATABASE_PORT_2=5432
+      - SERPAPI_KEY=${SERPAPI_KEY} # Will be taken from host environment
+    restart: unless-stopped # Automatically restart the container unless it is explicitly stopped 

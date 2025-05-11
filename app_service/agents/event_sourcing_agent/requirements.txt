@@ -1,0 +1,9 @@
+psycopg2-binary==2.9.9
+python-dotenv==1.0.0
+requests==2.31.0
+geopy==2.4.1
+schedule==1.2.1
+googlemaps==4.10.0
+serpapi==0.1.0
+python-dateutil==2.8.2 
+pytz
