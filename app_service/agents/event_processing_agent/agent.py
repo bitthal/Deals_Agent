@@ -76,7 +76,7 @@ async def process_events():
                 
             except Exception as e:
                 logger.error("Error processing individual event", extra={
-                    "event_id": record.get('event_id'),
+                    "event_id": record.get('id'),
                     "error": str(e)
                 }, exc_info=True)
                 

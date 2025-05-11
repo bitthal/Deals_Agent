@@ -18,9 +18,8 @@ LOG_FORMAT = {
 }
 
 def get_current_log_filename() -> str:
-    """Get the current log filename with date"""
-    current_date = datetime.now(IST).strftime("%Y-%m-%d")
-    return f"deals_agent_{current_date}.log"
+    """Get the current log filename"""
+    return "deals_agent.log"
 
 class CustomFormatter(logging.Formatter):
     """Custom formatter that includes file name and uses IST timezone"""
@@ -91,7 +90,7 @@ class LoggerManager:
             encoding='utf-8'
         )
         file_handler.setFormatter(file_formatter)
-        file_handler.suffix = "%Y-%m-%d.log"  # Format for rotated files
+        file_handler.suffix = "%Y-%m-%d"  # Format for rotated files
         self.logger.addHandler(file_handler)
 
         # Set timezone to IST

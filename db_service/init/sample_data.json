@@ -1,49 +1,59 @@
 {
   "events": [
     {
+      "id": 1,
       "vendor_id": 1,
       "location_uuid": "11111111-1111-1111-1111-111111111111",
       "event_trigger_point": "weather",
       "event_details_text": {"description": "Heavy rain expected"},
       "event_location_latitude": 28.6139,
       "event_location_longitude": 77.2090,
-      "event_timestamp": "2024-06-01T09:00:00Z"
+      "event_timestamp": "2024-06-01T09:00:00Z",
+      "updated_at": "2024-06-01T09:00:00Z"
     },
     {
+      "id": 2,
       "vendor_id": 2,
       "location_uuid": "22222222-2222-2222-2222-222222222222",
       "event_trigger_point": "product_expiry",
       "event_details_text": {"product": "Energy Gel", "expiry": "2024-06-10"},
       "event_location_latitude": 19.0760,
       "event_location_longitude": 72.8777,
-      "event_timestamp": "2024-06-02T10:00:00Z"
+      "event_timestamp": "2024-06-02T10:00:00Z",
+      "updated_at": "2024-06-02T10:00:00Z"
     },
     {
+      "id": 3,
       "vendor_id": 3,
       "location_uuid": "33333333-3333-3333-3333-333333333333",
       "event_trigger_point": "holiday_special",
       "event_details_text": {"holiday": "Independence Day"},
       "event_location_latitude": 12.9716,
       "event_location_longitude": 77.5946,
-      "event_timestamp": "2024-08-15T08:00:00Z"
+      "event_timestamp": "2024-08-15T08:00:00Z",
+      "updated_at": "2024-08-15T08:00:00Z"
     },
     {
+      "id": 4,
       "vendor_id": 4,
       "location_uuid": "44444444-4444-4444-4444-444444444444",
       "event_trigger_point": "local_event",
       "event_details_text": {"event": "Marathon"},
       "event_location_latitude": 13.0827,
       "event_location_longitude": 80.2707,
-      "event_timestamp": "2024-07-20T06:00:00Z"
+      "event_timestamp": "2024-07-20T06:00:00Z",
+      "updated_at": "2024-07-20T06:00:00Z"
     },
     {
+      "id": 5,
       "vendor_id": 5,
       "location_uuid": "55555555-5555-5555-5555-555555555555",
       "event_trigger_point": "stock_level",
       "event_details_text": {"sku": "UMB-LG-BLK-001", "stock": 10},
       "event_location_latitude": 22.5726,
       "event_location_longitude": 88.3639,
-      "event_timestamp": "2024-06-15T12:00:00Z"
+      "event_timestamp": "2024-06-15T12:00:00Z",
+      "updated_at": "2024-06-15T12:00:00Z"
     }
   ],
   "inventory": [
