@@ -101,8 +101,8 @@ async def main():
     while True:
         try:
             await process_events()
-            logger.info("Sleeping for 15 minutes before next cycle")
-            await asyncio.sleep(2 * 60)
+            logger.info("Sleeping for 5 minutes before next cycle")
+            await asyncio.sleep(5 * 60)
         except Exception as e:
             logger.error("Error in main loop", extra={
                 "error": str(e)

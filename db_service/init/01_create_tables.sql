@@ -15,6 +15,7 @@ CREATE TABLE events (
     event_location_latitude DECIMAL(10,8),
     event_location_longitude DECIMAL(11,8),
     event_timestamp TIMESTAMP,
+    activity_id VARCHAR(255) DEFAULT '',
     created_at TIMESTAMP WITH TIME ZONE DEFAULT CURRENT_TIMESTAMP,
     updated_at TIMESTAMP WITH TIME ZONE DEFAULT CURRENT_TIMESTAMP,
     processed_for_suggestion BOOLEAN DEFAULT FALSE
