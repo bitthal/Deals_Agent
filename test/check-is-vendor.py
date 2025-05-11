@@ -1,8 +1,8 @@
 import requests
  
-vendor_id = "da3f7067-baf9-4198-badb-d8927a42ee36"
+vendor_id = "6971cb91-b62b-4e5c-af83-a5baa82dfab3"
  
-url = f"http://127.0.0.1:8000/api/check-vendor/{vendor_id}/"
+url = f"https://api.upswap.app/api/check-vendor/{vendor_id}/"
  
 response = requests.get(url)
  
@@ -13,3 +13,14 @@ else:
     print(f"Request failed with status code: {response.status_code}")
     print("Response text:")
     print(response.text)
+
+
+
+"""
+Example response:-
+
+{
+    'is_vendor': True,
+    'vendor_id': 'e88fe995-b11b-478a-86ca-63fd047752b9'
+}
+"""

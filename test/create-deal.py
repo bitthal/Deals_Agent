@@ -39,3 +39,51 @@ else:
     print(f"Request failed with status code: {response.status_code}")
     print("Response text:")
     print(response.text)
+
+
+
+
+
+"""
+Example response:-
+
+{
+    'message': 'Deal created successfully!',
+    'data': {
+        'deal_uuid': 'ac703267-a5cb-458a-b6cc-8ea252f176ce',
+        'deal_title': 'Weekend Bakery Special',
+        'deal_description': 'Delicious cakes, pastries, and fresh bread at half price!',
+        'select_service': 'Food & Dining',
+        'uploaded_images': [
+            {
+                'thumbnail': 'https://upswap-assets.b-cdn.net/create_deal/thumbnail_asset_abcdef12-3456-7890-abcd-ef1234567890.webp',
+                'compressed': 'https://upswap-assets.b-cdn.net/create_deal/asset_abcdef12-3456-7890-abcd-ef1234567890.webp'
+            }
+        ],
+        'start_date': '2025-05-11',
+        'end_date': '2025-11-23',
+        'start_time': '16:11:20',
+        'end_time': '19:00:00',
+        'start_now': True,
+        'buy_now': True,
+        'actual_price': '600.00',
+        'deal_price': '300.00',
+        'available_deals': 25,
+        'location_house_no': 'Shop No. 7, Sunrise Complex',
+        'location_road_name': 'MG Road',
+        'location_country': 'India',
+        'location_state': 'Karnataka',
+        'location_city': 'Bangalore',
+        'location_pincode': '560001',
+        'vendor_kyc': 'e88fe995-b11b-478a-86ca-63fd047752b9',
+        'vendor_name': 'Krishiv Lawaniya',
+        'vendor_uuid': 'e88fe995-b11b-478a-86ca-63fd047752b9',
+        'vendor_email': 'krishivlawaniya@gmail.com',
+        'vendor_number': '9259573845',
+        'discount_percentage': 50.0,
+        'latitude': '12.971600',
+        'longitude': '77.594600',
+        'deal_post_time': '2025-05-11 16:11:20'
+    }
+}
+"""
