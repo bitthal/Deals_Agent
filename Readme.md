@@ -1,15 +1,5 @@
 # Project Name
 
-## Images
-
-### Local Image Example
-![Local Image](./images/example.png)
-
-### Online Image Example
-![Online Image](https://example.com/image.jpg)
-
-Note: Replace the image paths/URLs with your actual image locations.
-
 # Agentic Workflow Architecture
 
 ![Agentic Workflow Architecture](./app_service/images/architecture.png)
