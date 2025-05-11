@@ -14,10 +14,10 @@ INSERT INTO events (
     ('vendor3', 'loc789', 'entry', '{"activity_type": "entry", "duration": 60}', 12.9716, 77.5946, CURRENT_TIMESTAMP, 'act789');
 
 -- Insert sample inventory
-INSERT INTO inventory (sku, product_name, description, price, quantity_on_hand, category, supplier) VALUES
-    ('SKU001', 'Premium Coffee', 'High-quality arabica coffee beans', 19.99, 100, 'Beverages', 'Coffee Supplier Inc'),
-    ('SKU002', 'Organic Tea', 'Organic green tea leaves', 14.99, 150, 'Beverages', 'Tea Distributors'),
-    ('SKU003', 'Artisan Pastry', 'Freshly baked croissant', 4.99, 50, 'Bakery', 'Local Bakery Co');
+INSERT INTO inventory (sku, product_name, description, price, quantity_on_hand, category, supplier, vendor_id) VALUES
+    ('SKU001', 'Premium Coffee', 'High-quality arabica coffee beans', 19.99, 100, 'Beverages', 'Coffee Supplier Inc', 'd36fb11e-a4a6-4e2c-936b-ff296946a599'),
+    ('SKU002', 'Organic Tea', 'Organic green tea leaves', 14.99, 150, 'Beverages', 'Tea Distributors', 'd36fb11e-a4a6-4e2c-936b-ff296946a599'),
+    ('SKU003', 'Artisan Pastry', 'Freshly baked croissant', 4.99, 50, 'Bakery', 'Local Bakery Co', 'd36fb11e-a4a6-4e2c-936b-ff296946a599');
 
 -- Insert sample deal suggestions
 INSERT INTO deal_suggestions (

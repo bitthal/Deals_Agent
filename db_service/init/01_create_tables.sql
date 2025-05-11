@@ -29,7 +29,8 @@ CREATE TABLE IF NOT EXISTS inventory (
     price DECIMAL(10, 2) NOT NULL,
     quantity_on_hand INTEGER NOT NULL,
     category VARCHAR(255),
-    supplier VARCHAR(255)
+    supplier VARCHAR(255),
+    vendor_id VARCHAR(255) NOT NULL
 );
 
 -- Table: deal_suggestions (Stores AI-generated deal suggestions and vendor feedback)

@@ -58,7 +58,7 @@ def generate_deal_from_ai(event_data: EventData, inventory_list: List[InventoryI
         Example for a marathon and umbrella:
         {{
           "suggested_product_sku": "UMB-LG-BLK-001",
-          "deal_details_suggestion_text": "Beat the rain at the {event_data.event_name}! Large Umbrella, was ₹400, now ₹320! Stay dry. Limited stock!",
+          "deal_details_suggestion_text": "Beat the rain at the {event_data.event_details_text.get('event_name', 'event')}! Large Umbrella, was ₹400, now ₹320! Stay dry. Limited stock!",
           "suggested_discount_type": "fixed_amount",
           "suggested_discount_value": 80.00,
           "original_price": 400.00,
@@ -130,36 +130,26 @@ async def get_deal_suggestions(
     Generate deal suggestions using AI based on event details and inventory.
     """
     try:
-        # Prepare context for AI
-        context = f"""
-        Event Details:
-        - Name: {request.event_details.event_name}
-        - Type: {request.event_details.event_type}
-        - Date: {request.event_details.event_date}
-        - Target Audience: {request.event_details.target_audience or 'Not specified'}
-        - Special Requirements: {request.event_details.special_requirements or 'None'}
-
-        Available Inventory:
-        {format_inventory(request.inventory_list)}
-        """
-
-        # Generate suggestions using AI
-        response = await model.generate_content_async(
-            f"""Based on the following event and inventory information, suggest appropriate deals:
-            {context}
-            
-            Provide suggestions in the following format:
-            - Product SKU
-            - Suggested discount percentage
-            - Reasoning for the suggestion
-            - Estimated impact
-            - Alternative suggestions (if any)
-            """
+        # Generate deal suggestion using AI
+        deal_suggestion = generate_deal_from_ai(request.event_data, request.inventory_items)
+        
+        # Create DealSuggestion object
+        suggestion = DealSuggestion(
+            vendor_id=request.event_data.vendor_id,
+            event_id=0,  # This will be set by the database
+            inventory_item_id=0,  # This will be set by the database
+            suggested_product_sku=deal_suggestion["suggested_product_sku"],
+            deal_details_prompt="",  # Not used in current implementation
+            deal_details_suggestion_text=deal_suggestion["deal_details_suggestion_text"],
+            suggested_discount_type=deal_suggestion["suggested_discount_type"],
+            suggested_discount_value=deal_suggestion["suggested_discount_value"],
+            original_price=deal_suggestion["original_price"],
+            suggested_price=deal_suggestion["suggested_price"],
+            ai_model_name=GEMINI_MODEL_NAME,
+            ai_response_payload=deal_suggestion
         )
-
-        # Parse AI response and create suggestions
-        suggestions = parse_ai_response(response.text, request.inventory_list)
-        return suggestions
+        
+        return [suggestion]
 
     except Exception as e:
         logger.error(f"Error generating deal suggestions: {str(e)}")

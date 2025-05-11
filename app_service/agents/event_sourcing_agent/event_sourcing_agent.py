@@ -255,7 +255,7 @@ def run_scheduler():
     logger.info("Starting event sourcing scheduler")
     
     # Schedule the job to run every 5 minutes
-    schedule.every(5).minutes.do(job)
+    schedule.every(2).minutes.do(job)
     
     # Run the job immediately on startup
     job()

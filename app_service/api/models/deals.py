@@ -3,7 +3,7 @@ from pydantic import BaseModel, Field, conlist
 from datetime import datetime
 
 class EventData(BaseModel):
-    vendor_id: int
+    vendor_id: str
     location_uuid: str
     event_trigger_point: str
     event_details_text: Dict[str, Any]
@@ -21,7 +21,7 @@ class InventoryItem(BaseModel):
     supplier: Optional[str] = None
 
 class DealSuggestion(BaseModel):
-    vendor_id: int
+    vendor_id: str
     event_id: int
     inventory_item_id: int
     suggested_product_sku: str

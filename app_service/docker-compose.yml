@@ -4,7 +4,6 @@ services:
   app:
     build:
       context: .
-    container_name: deal_app_api
     ports:
       - "8008:8008" # Host port 8008 mapped to container port 8008
     volumes:
@@ -15,6 +14,12 @@ services:
       - DATABASE_PASSWORD=deals_password
       - DATABASE_HOST=172.178.68.8
       - DATABASE_PORT=5432
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:8008/"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 40s
 
   event_processing_agent:
     build:
@@ -29,6 +34,12 @@ services:
       - DATABASE_PASSWORD=deals_password
       - DATABASE_HOST=172.178.68.8
       - DATABASE_PORT=5432
+      - API_HOST=app
+      - API_PORT=8008
+    depends_on:
+      app:
+        condition: service_healthy
+    restart: unless-stopped # Automatically restart the container unless it is explicitly stopped 
 
   event_sourcing_agent:
     build:
@@ -49,4 +60,7 @@ services:
       - DATABASE_HOST_2=172.178.68.8
       - DATABASE_PORT_2=5432
       - SERPAPI_KEY=${SERPAPI_KEY} # Will be taken from host environment
+    depends_on:
+      app:
+        condition: service_healthy
     restart: unless-stopped # Automatically restart the container unless it is explicitly stopped 
