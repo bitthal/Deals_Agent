@@ -108,6 +108,15 @@ class EventSourcingAgent:
                 return False
 
             with conn.cursor() as cur:
+                # First check if an event with this activity_id already exists
+                cur.execute("""
+                    SELECT COUNT(*) FROM events WHERE activity_id = %s
+                """, (activity_id,))
+                
+                if cur.fetchone()[0] > 0:
+                    logger.info(f"Event with activity_id {activity_id} already exists. Skipping.")
+                    return True
+
                 # Create event details dictionary
                 event_details = {
                     'title': activity_details['activity_title'],
