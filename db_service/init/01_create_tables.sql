@@ -17,7 +17,8 @@ CREATE TABLE IF NOT EXISTS events (
     event_timestamp TIMESTAMP WITH TIME ZONE NOT NULL,
     created_at TIMESTAMP WITH TIME ZONE DEFAULT CURRENT_TIMESTAMP,
     updated_at TIMESTAMP WITH TIME ZONE DEFAULT CURRENT_TIMESTAMP,
-    activity_id VARCHAR(255) NOT NULL
+    activity_id VARCHAR(255) NOT NULL,
+    processed_for_suggestion BOOLEAN DEFAULT FALSE
 );
 
 -- Table: inventory (Stores product inventory information)
