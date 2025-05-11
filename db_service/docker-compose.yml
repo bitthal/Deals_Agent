@@ -10,6 +10,7 @@ services:
     volumes:
       - postgres_data:/var/lib/postgresql/data # Use named volume for data persistence
       - ./backups:/backups # For storing backups
+      - ./init:/docker-entrypoint-initdb.d # Mount init scripts
     environment:
       - POSTGRES_DB=deals_db
       - POSTGRES_USER=deals_user

@@ -127,19 +127,32 @@ class EventSourcingAgent:
                     'activity_details_json': activity_details  # Include the full activity details
                 }
 
-                # Convert vendor_id to integer (using hash of UUID string)
-                vendor_id_int = abs(hash(vendor_id)) % (2**31)  # Ensure it fits in PostgreSQL integer
+                # Generate a new UUID for location
+                location_uuid = str(uuid4())
+
+                # Get current timestamp
+                current_timestamp = datetime.now()
+
+                # Parse coordinates from activity details
+                try:
+                    latitude = float(activity_details['latitude'])
+                    longitude = float(activity_details['longitude'])
+                except (ValueError, KeyError) as e:
+                    logger.error(f"Error parsing coordinates: {e}")
+                    return False
 
                 # Prepare event data according to the schema
                 event_data = {
-                    'vendor_id': vendor_id_int,  # Convert to integer
-                    'location_uuid': str(uuid4()),  # Generate a new UUID
+                    'vendor_id': vendor_id,  # Keep as string
+                    'location_uuid': location_uuid,  # Generate a new UUID
                     'event_trigger_point': 'local_event',  # Fixed value as per schema
                     'event_details_text': json.dumps(event_details),  # Convert dict to JSON string for database storage
-                    'event_location_latitude': float(activity_details['latitude']),
-                    'event_location_longitude': float(activity_details['longitude']),
-                    'event_timestamp': datetime.now(),
-                    'activity_id': activity_id
+                    'event_location_latitude': latitude,
+                    'event_location_longitude': longitude,
+                    'event_timestamp': current_timestamp,
+                    'activity_id': activity_id,
+                    'created_at': current_timestamp,
+                    'updated_at': current_timestamp
                 }
 
                 # Insert the event
@@ -147,11 +160,13 @@ class EventSourcingAgent:
                     INSERT INTO events (
                         vendor_id, location_uuid, event_trigger_point, 
                         event_details_text, event_location_latitude, 
-                        event_location_longitude, event_timestamp, activity_id
+                        event_location_longitude, event_timestamp, activity_id,
+                        created_at, updated_at
                     ) VALUES (
                         %(vendor_id)s, %(location_uuid)s, %(event_trigger_point)s,
                         %(event_details_text)s, %(event_location_latitude)s,
-                        %(event_location_longitude)s, %(event_timestamp)s, %(activity_id)s
+                        %(event_location_longitude)s, %(event_timestamp)s, %(activity_id)s,
+                        %(created_at)s, %(updated_at)s
                     )
                 """, event_data)
                 

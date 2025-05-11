@@ -22,7 +22,7 @@ DB_HOST = os.getenv("DATABASE_HOST", "localhost")
 DB_PORT = int(os.getenv("DATABASE_PORT", 5432))
 
 QUERY_UNPROCESSED = """
-    SELECT * FROM events WHERE processed_for_suggestion = FALSE
+    SELECT * FROM events WHERE id NOT IN (SELECT event_id FROM deal_suggestions)
 """
 
 UPDATE_PROCESSED = """

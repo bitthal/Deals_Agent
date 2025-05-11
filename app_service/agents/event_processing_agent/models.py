@@ -6,7 +6,7 @@ from uuid import UUID
 
 class Event(BaseModel):
     id: int
-    vendor_id: int
+    vendor_id: str
     location_uuid: str
     event_trigger_point: str
     event_details_text: Dict[str, Any]

@@ -6,69 +6,57 @@ DROP TABLE IF EXISTS inventory CASCADE;
 DROP TABLE IF EXISTS events CASCADE;
 
 -- Events table to store information about real-time events
-CREATE TABLE events (
+CREATE TABLE IF NOT EXISTS events (
     id SERIAL PRIMARY KEY,
-    vendor_id INTEGER,
-    location_uuid UUID,
-    event_trigger_point VARCHAR(32) NOT NULL CHECK (event_trigger_point IN ('weather', 'product_expiry', 'holiday_special', 'local_event', 'competitor_action', 'stock_level')),
-    event_details_text JSONB,
-    event_location_latitude DECIMAL(10,8),
-    event_location_longitude DECIMAL(11,8),
-    event_timestamp TIMESTAMP,
-    activity_id VARCHAR(255) DEFAULT '',
+    vendor_id VARCHAR(255) NOT NULL,
+    location_uuid VARCHAR(255) NOT NULL,
+    event_trigger_point VARCHAR(255) NOT NULL,
+    event_details_text JSONB NOT NULL,
+    event_location_latitude DECIMAL(10, 8) NOT NULL,
+    event_location_longitude DECIMAL(11, 8) NOT NULL,
+    event_timestamp TIMESTAMP WITH TIME ZONE NOT NULL,
     created_at TIMESTAMP WITH TIME ZONE DEFAULT CURRENT_TIMESTAMP,
     updated_at TIMESTAMP WITH TIME ZONE DEFAULT CURRENT_TIMESTAMP,
-    processed_for_suggestion BOOLEAN DEFAULT FALSE
-    -- Add foreign key constraints if referenced tables exist:
-    -- ,FOREIGN KEY (vendor_id) REFERENCES main_vendorkyc(vendor_id)
-    -- ,FOREIGN KEY (location_uuid) REFERENCES vendor_business_locations(uuid)
+    activity_id VARCHAR(255) NOT NULL
 );
 
 -- Table: inventory (Stores product inventory information)
-CREATE TABLE inventory (
-    sku VARCHAR(32) PRIMARY KEY,
+CREATE TABLE IF NOT EXISTS inventory (
+    sku VARCHAR(255) PRIMARY KEY,
     product_name VARCHAR(255) NOT NULL,
     description TEXT,
-    price DECIMAL(10,2) NOT NULL CHECK (price > 0),
-    quantity_on_hand INTEGER NOT NULL CHECK (quantity_on_hand >= 0),
-    category VARCHAR(100) NOT NULL,
-    supplier VARCHAR(255),
-    created_at TIMESTAMP WITH TIME ZONE DEFAULT CURRENT_TIMESTAMP,
-    updated_at TIMESTAMP WITH TIME ZONE DEFAULT CURRENT_TIMESTAMP
+    price DECIMAL(10, 2) NOT NULL,
+    quantity_on_hand INTEGER NOT NULL,
+    category VARCHAR(255),
+    supplier VARCHAR(255)
 );
 
 -- Table: deal_suggestions (Stores AI-generated deal suggestions and vendor feedback)
-CREATE TABLE deal_suggestions (
+CREATE TABLE IF NOT EXISTS deal_suggestions (
     id SERIAL PRIMARY KEY,
-    vendor_id INTEGER,
-    event_id INTEGER,
-    suggested_product_sku VARCHAR(32) NOT NULL,
-    deal_details_prompt TEXT,
-    deal_details_suggestion_text TEXT,
-    suggested_discount_type VARCHAR(20) CHECK (suggested_discount_type IN ('percentage', 'fixed_amount')),
-    suggested_discount_value DECIMAL(10,2),
-    original_price DECIMAL(10,2),
-    suggested_price DECIMAL(10,2),
-    ai_model_name VARCHAR(100),
-    ai_response_payload JSON,
-    vendor_feedback VARCHAR(20) NOT NULL DEFAULT 'pending' CHECK (vendor_feedback IN ('pending', 'accepted', 'rejected')),
-    feedback_timestamp TIMESTAMP,
-    status VARCHAR(32) NOT NULL DEFAULT 'generated' CHECK (status IN ('generated', 'notified_vendor', 'feedback_received', 'deal_posted', 'deal_post_failed', 'expired')),
-    deals_api_request_payload JSON,
-    deals_api_response_payload JSON,
+    vendor_id VARCHAR(255) NOT NULL,
+    event_id INTEGER NOT NULL,
+    suggested_product_sku VARCHAR(255) NOT NULL,
+    deal_details_prompt TEXT NOT NULL,
+    deal_details_suggestion_text TEXT NOT NULL,
+    suggested_discount_type VARCHAR(50) NOT NULL,
+    suggested_discount_value DECIMAL(10, 2) NOT NULL,
+    original_price DECIMAL(10, 2) NOT NULL,
+    suggested_price DECIMAL(10, 2) NOT NULL,
+    ai_model_name VARCHAR(255) NOT NULL,
+    ai_response_payload JSONB NOT NULL,
+    vendor_feedback VARCHAR(50) DEFAULT 'pending',
+    status VARCHAR(50) NOT NULL,
     created_at TIMESTAMP WITH TIME ZONE DEFAULT CURRENT_TIMESTAMP,
     updated_at TIMESTAMP WITH TIME ZONE DEFAULT CURRENT_TIMESTAMP,
+    FOREIGN KEY (event_id) REFERENCES events(id),
     FOREIGN KEY (suggested_product_sku) REFERENCES inventory(sku)
-    -- Add foreign key constraints if referenced tables exist:
-    -- ,FOREIGN KEY (vendor_id) REFERENCES main_vendorkyc(vendor_id)
-    -- ,FOREIGN KEY (event_id) REFERENCES events(id)
 );
 
 -- Create indexes for better query performance
 CREATE INDEX IF NOT EXISTS idx_events_vendor_id ON events(vendor_id);
 CREATE INDEX IF NOT EXISTS idx_events_location_uuid ON events(location_uuid);
 CREATE INDEX IF NOT EXISTS idx_events_trigger_point ON events(event_trigger_point);
-CREATE INDEX IF NOT EXISTS idx_events_processed_for_suggestion ON events(processed_for_suggestion);
 CREATE INDEX IF NOT EXISTS idx_inventory_category ON inventory(category);
 CREATE INDEX IF NOT EXISTS idx_inventory_supplier ON inventory(supplier);
 

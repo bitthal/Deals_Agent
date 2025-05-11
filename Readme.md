@@ -11,3 +11,6 @@ This diagram illustrates the agentic workflow for automated deal creation and pu
 3. **Deal Creation Agent**: Monitors the database for available deal suggestions. When a suggestion is found, it calls an API to create the deal and publishes it on the Upswap platform, including details such as the deal description, discount percentage, and validity period.
 
 This agentic workflow ensures that deals are created and published automatically based on real-time events and inventory data, streamlining the process from event detection to deal publication.
+
+
+docker system prune -a --volumes
