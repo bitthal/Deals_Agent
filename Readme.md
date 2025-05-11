@@ -1,6 +1,4 @@
-# Project Name
-
-# Agentic Workflow Architecture
+# Deals Agents Architecture
 
 ![Agentic Workflow Architecture](./app_service/images/architecture.png)
 
