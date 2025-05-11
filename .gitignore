@@ -15,3 +15,5 @@ app_service/.env
 .vscode/
 .idea/
 *.DS_Store
+
+*.zip

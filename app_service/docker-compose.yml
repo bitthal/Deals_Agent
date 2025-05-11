@@ -1,0 +1,31 @@
+version: '3.8'
+
+services:
+  app:
+    build:
+      context: .
+    container_name: deal_app_api
+    ports:
+      - "8008:8008" # Host port 8008 mapped to container port 8008
+    volumes:
+      - .:/app # Mount app code for hot-reloading (dev)
+    environment:
+      - DATABASE_NAME=deals_db
+      - DATABASE_USER=deals_user
+      - DATABASE_PASSWORD=deals_password
+      - DATABASE_HOST=172.178.68.8
+      - DATABASE_PORT=5432
+
+  event_agent:
+    build:
+      context: .
+      dockerfile: agents/event_processing_agent/Dockerfile
+    container_name: deal_event_agent
+    volumes:
+      - ./logs:/app/logs:rw # Mount logs directory with read-write permissions
+    environment:
+      - DATABASE_NAME=deals_db
+      - DATABASE_USER=deals_user
+      - DATABASE_PASSWORD=deals_password
+      - DATABASE_HOST=172.178.68.8
+      - DATABASE_PORT=5432 
