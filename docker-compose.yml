@@ -13,7 +13,7 @@ services:
       - DATABASE_NAME=deals_db
       - DATABASE_USER=deals_user
       - DATABASE_PASSWORD=deals_password
-      - DATABASE_HOST=db
+      - DATABASE_HOST=172.178.68.8
       - DATABASE_PORT=5432
     depends_on:
       - db
@@ -54,7 +54,7 @@ services:
       - DATABASE_NAME=deals_db
       - DATABASE_USER=deals_user
       - DATABASE_PASSWORD=deals_password
-      - DATABASE_HOST=db
+      - DATABASE_HOST=172.178.68.8
       - DATABASE_PORT=5432
     depends_on:
       - db
